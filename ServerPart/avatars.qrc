@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/Angel.png</file>
+        <file>images/Engineer.png</file>
+        <file>images/King.png</file>
+        <file>images/Lady.png</file>
+        <file>images/Mexican.png</file>
+        <file>images/Policeman.png</file>
+        <file>images/Professor.png</file>
+        <file>images/Superman.png</file>
+        <file>images/UncleSam.png</file>
+        <file>images/Server.png</file>
+        <file>images/Envelope.png</file>
+        <file>images/pulse.gif</file>
+        <file>images/File.png</file>
+    </qresource>
+</RCC>
