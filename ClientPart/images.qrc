@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/Avatars/Angel.png</file>
+        <file>images/Avatars/Engineer.png</file>
+        <file>images/Avatars/King.png</file>
+        <file>images/Avatars/Lady.png</file>
+        <file>images/Avatars/Mexican.png</file>
+        <file>images/Avatars/Policeman.png</file>
+        <file>images/Avatars/Professor.png</file>
+        <file>images/Avatars/Server.png</file>
+        <file>images/Avatars/Superman.png</file>
+        <file>images/Avatars/UncleSam.png</file>
+        <file>images/Smiles/0.png</file>
+        <file>images/Smiles/1.png</file>
+        <file>images/Smiles/2.png</file>
+        <file>images/Smiles/3.png</file>
+        <file>images/Smiles/4.png</file>
+        <file>images/Smiles/5.png</file>
+        <file>images/Smiles/6.png</file>
+        <file>images/Smiles/7.png</file>
+        <file>images/Smiles/8.png</file>
+        <file>images/Smiles/9.png</file>
+        <file>images/Smiles/10.png</file>
+        <file>images/Smiles/11.png</file>
+        <file>images/Avatars/avatars.png</file>
+    </qresource>
+</RCC>

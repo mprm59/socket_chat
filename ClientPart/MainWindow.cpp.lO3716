@@ -1,0 +1,77 @@
+#include "MainWindow.h"
+#include <QRegExp>
+
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
+{
+    setupUi(this);
+    stackedWidget->setCurrentWidget(loginPage);
+    socket = new QTcpSocket(this);
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    connect(socket, SIGNAL(connected()), this, SLOT(connected()));
+    setRandomNames();
+}
+
+void MainWindow::setRandomNames(){
+    firstName[0]="Super";      middleName[0]="Beast";       lastName[0]="228";
+    firstName[1]="Sexy";       middleName[1]="Boy";         lastName[1]="1998";
+    firstName[2]="Big";        middleName[2]="Flower";      lastName[2]="420";
+    firstName[3]="Tough";      middleName[3]="Kitty";       lastName[3]="01";
+    firstName[4]="Great";      middleName[4]="Guy";         lastName[4]="007";
+    firstName[5]="Fabulous";   middleName[5]="Angel";       lastName[5]="1987";
+    firstName[6]="Blood";      middleName[6]="Lady";        lastName[6]="2000";
+    firstName[7]="Smart";      middleName[7]="Fella";       lastName[7]="777";
+    firstName[8]="Mister";     middleName[8]="Maestro";     lastName[8]="3d";
+    firstName[9]="Summer";     middleName[9]="Princess";    lastName[9]="123";
+}
+
+
+void MainWindow::on_loginButton_clicked()
+{
+    socket->connectToHost(serverLineEdit->text(), 2280);
+}
+
+void MainWindow::on_sayButton_clicked()
+{
+    QString message = sayLineEdit->text().trimmed();
+    if(!message.isEmpty()) socket->write(QString(message + "\n").toUtf8());
+    sayLineEdit->clear();
+}
+
+void MainWindow::readyRead()
+{
+    while(socket->canReadLine())
+    {
+        QString line = QString::fromUtf8(socket->readLine()).trimmed();
+
+        QRegExp textRegExp("^([^:]+):(.*)$");
+        QRegExp usersRegExp("^/users:(.*)$");
+
+        if (usersRegExp.indexIn(line) != -1)
+                {
+                    QStringList users = usersRegExp.cap(1).split(",");
+                    userListWidget->clear();
+                    foreach(QString user, users)
+                        new QListWidgetItem(user, userListWidget);
+                }
+        else if(textRegExp.indexIn(line) != -1)
+        {
+            QString user = textRegExp.cap(1);
+            QString message = textRegExp.cap(2);
+
+            roomTextEdit->append("<b>" + user + ": </b>" + message);
+        }
+    }
+}
+
+void MainWindow::on_randButton_clicked()
+{
+    userLineEdit->clear();
+    srand(QTime(0));
+    userLineEdit->insert(firstName[qrand()%10] + middleName[qrand()%10] + lastName[qrand()%10]);
+}
+
+void MainWindow::connected()
+{
+    stackedWidget->setCurrentWidget(chatPage);
+    socket->write(QString("/me:" + userLineEdit->text() + "\n").toUtf8());
+}
